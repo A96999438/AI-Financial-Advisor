@@ -2,6 +2,11 @@ def format_advice(text):
 
     lines = text.split("\n")
 
-    cleaned = [line.strip() for line in lines if line.strip() != ""]
+    cleaned = []
+
+    for line in lines:
+
+        if line.strip() != "":
+            cleaned.append(line.strip())
 
     return cleaned
