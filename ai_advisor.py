@@ -1,40 +1,51 @@
 from config import model
 
+
 def get_financial_advice(income, expenses, savings, debt, goal):
 
-    prompt = f"""
-    A user has the following financial details:
+    try:
 
-    Monthly Income: {income}
-    Monthly Expenses: {expenses}
-    Current Savings: {savings}
-    Current Debt: {debt}
-    Financial Goal: {goal}
+        prompt = f"""
+        A user has the following financial details:
 
-    Provide simple financial advice including:
-    - Budgeting tips
-    - Savings improvement
-    - Debt management
-    - Investment suggestions
+        Monthly Income: {income}
+        Monthly Expenses: {expenses}
+        Current Savings: {savings}
+        Current Debt: {debt}
+        Financial Goal: {goal}
 
-    Keep the response short and clear.
-    """
+        Provide short financial advice including:
+        - Budgeting tips
+        - Savings improvement
+        - Debt management
+        - Investment suggestions
+        """
 
-    response = model.generate_content(prompt)
+        response = model.generate_content(prompt)
 
-    return response.text
+        return response.text
+
+    except Exception:
+
+        return "AI service temporarily unavailable. Please try again."
 
 
 def chatbot_response(question):
 
-    prompt = f"""
-    You are a financial advisor.
+    try:
 
-    Answer the user's question simply.
+        prompt = f"""
+        You are a helpful financial advisor.
 
-    Question: {question}
-    """
+        Answer the user's financial question clearly.
 
-    response = model.generate_content(prompt)
+        Question: {question}
+        """
 
-    return response.text
+        response = model.generate_content(prompt)
+
+        return response.text
+
+    except Exception:
+
+        return "AI chatbot temporarily unavailable."
