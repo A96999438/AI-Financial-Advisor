@@ -31,21 +31,8 @@ def get_financial_advice(income, expenses, savings, debt, goal):
 
 
 def chatbot_response(question):
-
     try:
-
-        prompt = f"""
-        You are a helpful financial advisor.
-
-        Answer the user's financial question clearly.
-
-        Question: {question}
-        """
-
-        response = model.generate_content(prompt)
-
+        response = model.generate_content(question)
         return response.text
-
-    except Exception:
-
-        return "AI chatbot temporarily unavailable."
+    except Exception as e:
+        return f"AI chatbot temporarily unavailable: {str(e)}"
