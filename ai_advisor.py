@@ -1,43 +1,37 @@
-from config import client, MODEL_NAME
+from config import model
 
 
 def chatbot_response(question):
 
     try:
-
-        response = client.models.generate_content(
-            model=MODEL_NAME,
-            contents=question
-        )
-
+        response = model.generate_content(question)
         return response.text
 
     except Exception as e:
-
         return f"AI chatbot error: {str(e)}"
 
 
 def get_financial_advice(income, expenses, savings, debt, goal):
 
     prompt = f"""
-    Income: {income}
-    Expenses: {expenses}
-    Savings: {savings}
-    Debt: {debt}
-    Goal: {goal}
+    A user has the following financial details:
 
-    Provide financial advice for budgeting, saving, and investing.
+    Monthly Income: {income}
+    Monthly Expenses: {expenses}
+    Current Savings: {savings}
+    Current Debt: {debt}
+    Financial Goal: {goal}
+
+    Provide short financial advice including:
+    - Budgeting
+    - Saving tips
+    - Debt management
+    - Investment suggestions
     """
 
     try:
-
-        response = client.models.generate_content(
-            model=MODEL_NAME,
-            contents=prompt
-        )
-
+        response = model.generate_content(prompt)
         return response.text
 
     except Exception as e:
-
         return f"AI advice error: {str(e)}"
