@@ -1,38 +1,43 @@
-from config import model
+from config import client, MODEL_NAME
+
+
+def chatbot_response(question):
+
+    try:
+
+        response = client.models.generate_content(
+            model=MODEL_NAME,
+            contents=question
+        )
+
+        return response.text
+
+    except Exception as e:
+
+        return f"AI chatbot error: {str(e)}"
 
 
 def get_financial_advice(income, expenses, savings, debt, goal):
 
+    prompt = f"""
+    Income: {income}
+    Expenses: {expenses}
+    Savings: {savings}
+    Debt: {debt}
+    Goal: {goal}
+
+    Provide financial advice for budgeting, saving, and investing.
+    """
+
     try:
 
-        prompt = f"""
-        A user has the following financial details:
-
-        Monthly Income: {income}
-        Monthly Expenses: {expenses}
-        Current Savings: {savings}
-        Current Debt: {debt}
-        Financial Goal: {goal}
-
-        Provide short financial advice including:
-        - Budgeting tips
-        - Savings improvement
-        - Debt management
-        - Investment suggestions
-        """
-
-        response = model.generate_content(prompt)
+        response = client.models.generate_content(
+            model=MODEL_NAME,
+            contents=prompt
+        )
 
         return response.text
 
-    except Exception:
-
-        return "AI service temporarily unavailable. Please try again."
-
-
-def chatbot_response(question):
-    try:
-        response = model.generate_content(question)
-        return response.text
     except Exception as e:
-        return f"AI chatbot temporarily unavailable: {str(e)}"
+
+        return f"AI advice error: {str(e)}"
