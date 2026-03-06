@@ -1,11 +1,11 @@
 import streamlit as st
-import google.generativeai as genai
+from google import genai
 
-# Get API key from Streamlit secrets
+# Load API key from Streamlit secrets
 api_key = st.secrets["GEMINI_API_KEY"]
 
-# Configure Gemini
-genai.configure(api_key=api_key)
+# Create Gemini client
+client = genai.Client(api_key=api_key)
 
-# Use supported model
-model = genai.GenerativeModel("gemini-1.5-flash-latest")
+# Model name (latest supported)
+MODEL_NAME = "gemini-1.5-flash"
